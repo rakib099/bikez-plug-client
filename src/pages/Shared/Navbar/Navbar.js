@@ -22,7 +22,7 @@ const Navbar = () => {
                 </div>
                 <Link to="/">
                     <div className="flex items-center btn btn-ghost gap-1">
-                        <img src={logo} alt="website-logo" />
+                        <img className='hidden lg:inline' src={logo} alt="website-logo" />
                         <span className='normal-case text-xl font-semibold'>Bikez Plug</span>
                     </div>
                 </Link>
