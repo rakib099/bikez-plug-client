@@ -1,9 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const CategoryCard = ({card}) => {
     return (
         <div className="card bg-base-100">
-            <figure><img className='w-2/3' src={card.img} alt="Shoes" /></figure>
+            <Link to='/blogs'><figure>
+                <img className='w-2/3' src={card.img} alt="category" />
+            </figure></Link>
             <div className="mt-3">
                 <h2 className="font-semibold text-xl flex justify-center items-center gap-3">
                     {card.text}
