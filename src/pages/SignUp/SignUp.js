@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -7,6 +9,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 const SignUp = () => {
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
 
     const handleSignUp = (data, e) => {
         console.log(data);
@@ -24,19 +27,32 @@ const SignUp = () => {
 
     // user info updating function
     const updateAndSaveUserToDB = (name, email, userType) => {
-        const userInfo = {
+        const updateInfo = {
             displayName: name
         }
 
-        updateUserProfile(userInfo)
+        updateUserProfile(updateInfo)
             .then(() => {
                 console.log('profile updated');
+                const user = { name, email, userType}; // for DB
+                saveUserToDB(user);
             })
             .catch(err => console.error(err));
     }
 
-    const saveUserToDB = () => {
-
+    // Saving user to DB function
+    const saveUserToDB = (user) => {
+        axios.post('http://localhost:5000/users', user)
+          .then(function (data) {
+            console.log(data);
+            if (data.data.acknowledged) {
+                toast.success('Sign up successful! You may login now.');
+                setCreatedUserEmail(user.email);
+            }
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
     }
 
     return (
