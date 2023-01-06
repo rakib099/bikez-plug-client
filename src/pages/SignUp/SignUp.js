@@ -5,24 +5,34 @@ import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [firebaseError, setFirebaseError] = useState('');
+    const [token] = useToken(createdUserEmail);
+
+    // if (token) {
+        
+    // }
 
     const handleSignUp = (data, e) => {
-        console.log(data);
         const { name, email, password, userType } = data;
+        setFirebaseError('');
 
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 updateAndSaveUserToDB(name, email, userType);
+                e.target.reset();
             })
-            .catch(err => console.error(err));
-        e.target.reset();
+            .catch(err => {
+                console.error(err);
+                setFirebaseError(err.message);
+            });
     }
 
     // user info updating function
@@ -34,7 +44,7 @@ const SignUp = () => {
         updateUserProfile(updateInfo)
             .then(() => {
                 console.log('profile updated');
-                const user = { name, email, userType}; // for DB
+                const user = { name, email, userType }; // for DB
                 saveUserToDB(user);
             })
             .catch(err => console.error(err));
@@ -43,18 +53,47 @@ const SignUp = () => {
     // Saving user to DB function
     const saveUserToDB = (user) => {
         axios.post('http://localhost:5000/users', user)
-          .then(function (data) {
-            console.log(data);
-            if (data.data.acknowledged) {
-                toast.success('Sign up successful! You may login now.');
-                setCreatedUserEmail(user.email);
-            }
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
+            .then(function (data) {
+                console.log(data);
+                if (data.data.acknowledged) {
+                    toast.success('Sign up successful!');
+                    setCreatedUserEmail(user.email);
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
+    // Google Login
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(result => {
+                const userInfo = result.user;
+                const user = {
+                    name: userInfo.displayName,
+                    email: userInfo.email,
+                    userType: "Buyer"
+                }
+                // saving user to DB
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        setCreatedUserEmail(user.email);
+
+                    })
+                    .catch(err => console.error(err));
+            })
+            .catch(err => console.error(err));
+    }
+    
     return (
         <div className='flex justify-center items-center'>
             <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] w-4/6 lg:w-1/4 p-6 rounded-lg bg-slate-100 mt-5 mb-12'>
@@ -100,12 +139,12 @@ const SignUp = () => {
                             </div>
                         </div>
                     </div>
-
+                    <p className="text-error mb-2">{firebaseError}</p>
                     <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Login" />
                 </form>
-                <p className='text-sm'>New to this website? <Link to='/signup' className='text-[#1257be]'>Create an Account</Link></p>
+                <p className='text-sm'>Already have an account? <Link to='/login' className='text-[#1257be]'>Login here.</Link></p>
                 <div className="divider">OR</div>
-                <button className="btn btn-outline  hover:bg-[#1257be] w-full"><FcGoogle /> <span className='ml-3'>Continue With Google</span></button>
+                <button onClick={handleGoogleLogin} className="btn btn-outline  hover:bg-slate-600 w-full"><FcGoogle /> <span className='ml-3'>Continue With Google</span></button>
             </div>
         </div>
     );

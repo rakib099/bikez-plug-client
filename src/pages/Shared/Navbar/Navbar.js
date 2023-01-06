@@ -1,15 +1,25 @@
-import React, {useContext} from 'react';
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const menuItems = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/blogs">Blogs</Link></li>
     </>;
+
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {
+            localStorage.removeItem('accessToken');
+            navigate('/login');
+        })
+        .catch(err => console.error(err));
+    }
 
     return (
         <div className="navbar bg-base-100">
@@ -36,8 +46,17 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/signup">Sign Up</Link></li>
+                    {
+                        !!user ?
+                        <>
+                            <li><button onClick={handleLogOut}>Log Out</button></li>
+                        </>
+                        :
+                            <>
+                                <li><Link to="/login">Login</Link></li>
+                                <li><Link to="/signup">Sign Up</Link></li>
+                            </>
+                    }
                 </ul>
             </div>
         </div>
