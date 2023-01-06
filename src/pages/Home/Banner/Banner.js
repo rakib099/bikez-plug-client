@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import bannerImg from '../../../assets/images/pexels-andrea-2.png';
 import './Banner.css';
 
 const Banner = () => {
 
     return (
-        <div className="banner mb-6">
+        <div className="banner mb-10 mt-3">
             <div id={`slide1`} className="carousel-item relative w-full">
                 <div className='carousel-img ml-auto'>
                     <img src={bannerImg} alt="carousel-img" className="rounded-lg" />

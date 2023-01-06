@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
+import ExchangeOffer from '../ExchangeOffer/ExchangeOffer';
 import ProductCategories from '../ProductCategories/ProductCategories';
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
                 // <AdvertisedSection />
             }
             <ProductCategories />
+            <ExchangeOffer />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
@@ -8,8 +8,8 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const menuItems = <>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/blogs">Blogs</Link></li>
+        <li className='font-semibold'><Link to="/">Home</Link></li>
+        <li className='font-semibold'><Link to="/blogs">Blogs</Link></li>
     </>;
 
     const handleLogOut = () => {
@@ -49,12 +49,12 @@ const Navbar = () => {
                     {
                         !!user ?
                         <>
-                            <li><button onClick={handleLogOut}>Log Out</button></li>
+                            <li className='font-semibold'><button onClick={handleLogOut}>Log Out</button></li>
                         </>
                         :
                             <>
-                                <li><Link to="/login">Login</Link></li>
-                                <li><Link to="/signup">Sign Up</Link></li>
+                                <li className='font-semibold'><Link to="/login">Login</Link></li>
+                                <li className='font-semibold'><Link to="/signup">Sign Up</Link></li>
                             </>
                     }
                 </ul>

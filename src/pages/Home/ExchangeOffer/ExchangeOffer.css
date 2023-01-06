@@ -1,0 +1,9 @@
+.flip-img {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.exchange-logo {
+    position: absolute;
+    left: 15rem;
+    top: 5rem;
+}
