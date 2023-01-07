@@ -15,7 +15,7 @@ const BikeCard = () => {
     const formattedToday = dd + '/' + mm + '/' + yyyy;
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card bg-base-100 shadow-xl">
             <figure><img src={kidsBike} alt="Bike" className='max-w-full h-auto' /></figure>
             <div className="card-body">
                 <div className="">
@@ -27,7 +27,7 @@ const BikeCard = () => {
                             <span className='text-gray-500'>Elena Gilbert</span>
                             <BsCheckCircleFill title='Verified Seller' className='text-primary text-lg cursor-pointer' />
                         </p>
-                        {/* <p className='text-end text-[#707676]'>Posted {formattedToday}</p> */}
+                        <button className="btn btn-sm btn-secondary hover:btn-primary">Book now</button>
                     </div>
                 </div>
                 <div className="bg-[#E8F4FF] p-2 rounded-lg">
