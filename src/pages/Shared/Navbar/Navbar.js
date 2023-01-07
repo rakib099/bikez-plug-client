@@ -33,7 +33,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <Link to="/">
-                    <div className="flex items-center btn btn-ghost gap-1">
+                    <div className="flex items-center lg:pl-4 gap-1">
                         <img className='hidden lg:inline' src={logo} alt="website-logo" />
                         <span className='normal-case text-xl font-semibold'>Bikez Plug</span>
                     </div>
