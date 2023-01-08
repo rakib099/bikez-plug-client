@@ -7,6 +7,7 @@ import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import SignUp from "../../pages/SignUp/SignUp";
+import BuyerRoute from "../BuyerRoute/BuyerRoute";
 
 const router = createBrowserRouter([
     {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard/orders',
-                element: <MyOrders />
+                element: <BuyerRoute><MyOrders /></BuyerRoute>
             }
         ]
     }

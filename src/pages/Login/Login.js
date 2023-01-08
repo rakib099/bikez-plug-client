@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 
@@ -12,14 +12,15 @@ const Login = () => {
     const [firebaseError, setFirebaseError] = useState('');
     const [token] = useToken(userEmail);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
-
         if (token) {
-            navigate('/');
+            navigate(from, { replace: true });
         }
 
-    }, [token, navigate]);
+    }, [token, navigate, from]);
 
     // handle Login event handler
     const handleLogin = (data, e) => {

@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useBuyer from '../../../hooks/useBuyer';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [isBuyer] = useBuyer(user?.email);
     const navigate = useNavigate();
 
     const menuItems = <>
@@ -49,13 +51,18 @@ const Navbar = () => {
             <div className="navbar-end">
                 <ul className="menu menu-horizontal px-1">
                     {
-                        !!user ?
+                        !!user?.uid ?
                             <>
 
                                 <div className="dropdown dropdown-hover">
                                     <label tabIndex={0} className="btn btn-ghost normal-case text-lg py-3">Dashboard</label>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li><Link to="/dashboard/orders">My Orders</Link></li>
+                                        {
+                                            isBuyer &&
+                                            <>
+                                                <li><Link to="/dashboard/orders">My Orders</Link></li>
+                                            </>
+                                        }
                                         <li><Link>Item 2</Link></li>
                                     </ul>
                                 </div>
