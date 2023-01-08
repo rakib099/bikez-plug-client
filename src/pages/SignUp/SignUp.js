@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 
@@ -13,10 +13,15 @@ const SignUp = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [firebaseError, setFirebaseError] = useState('');
     const [token] = useToken(createdUserEmail);
+    const navigate = useNavigate();
 
-    // if (token) {
-        
-    // }
+    useEffect(() => {
+
+        if (token) {
+            navigate('/');
+        }
+
+    }, [token, navigate]);
 
     const handleSignUp = (data, e) => {
         const { name, email, password, userType } = data;
@@ -140,7 +145,7 @@ const SignUp = () => {
                         </div>
                     </div>
                     <p className="text-error mb-2">{firebaseError}</p>
-                    <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Login" />
+                    <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Sign Up" />
                 </form>
                 <p className='text-sm'>Already have an account? <Link to='/login' className='text-[#1257be]'>Login here.</Link></p>
                 <div className="divider">OR</div>

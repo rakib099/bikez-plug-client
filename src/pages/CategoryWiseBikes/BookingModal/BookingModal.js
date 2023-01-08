@@ -42,11 +42,13 @@ const BookingModal = ({ bookingInfo, setBookingInfo }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.insertedId) {
                     setBookingInfo(null);
                     form.reset();
                     toast.success(`${bookingInfo.name} successfully booked!`);
+                }
+                else {
+                    toast.error(data.message);
                 }
             })
             .catch(err => console.error(err));

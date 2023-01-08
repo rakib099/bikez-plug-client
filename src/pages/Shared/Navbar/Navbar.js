@@ -8,17 +8,19 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const menuItems = <>
-        <li className='font-semibold'><Link to="/">Home</Link></li>
-        <li className='font-semibold'><Link to="/blogs">Blogs</Link></li>
+        <li className='font-semibold text-lg'><Link to="/">Home</Link></li>
+        <li className='font-semibold text-lg'><Link to="/blogs">Blogs</Link></li>
+
+
     </>;
 
     const handleLogOut = () => {
         logOut()
-        .then(() => {
-            localStorage.removeItem('accessToken');
-            navigate('/login');
-        })
-        .catch(err => console.error(err));
+            .then(() => {
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            })
+            .catch(err => console.error(err));
     }
 
     return (
@@ -48,13 +50,22 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1">
                     {
                         !!user ?
-                        <>
-                            <li className='font-semibold'><button onClick={handleLogOut}>Log Out</button></li>
-                        </>
-                        :
                             <>
-                                <li className='font-semibold'><Link to="/login">Login</Link></li>
-                                <li className='font-semibold'><Link to="/signup">Sign Up</Link></li>
+
+                                <div className="dropdown dropdown-hover">
+                                    <label tabIndex={0} className="btn btn-ghost normal-case text-lg py-3">Dashboard</label>
+                                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li><Link to="/dashboard/orders">My Orders</Link></li>
+                                        <li><Link>Item 2</Link></li>
+                                    </ul>
+                                </div>
+
+                                <li className='font-semibold text-lg'><button onClick={handleLogOut}>Log Out</button></li>
+                            </>
+                            :
+                            <>
+                                <li className='font-semibold text-lg'><Link to="/login">Login</Link></li>
+                                <li className='font-semibold text-lg'><Link to="/signup">Sign Up</Link></li>
                             </>
                     }
                 </ul>
