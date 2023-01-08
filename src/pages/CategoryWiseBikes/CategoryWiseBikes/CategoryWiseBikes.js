@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import BikeCard from '../BikeCard/BikeCard';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../../components/Spinner/Spinner';
+import BookingModal from '../BookingModal/BookingModal';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const CategoryWiseBikes = () => {
     const category = useLoaderData();
+    const {user} = useContext(AuthContext);
+    const [bookingInfo, setBookingInfo] = useState(null);
     const { _id, title } = category;
-    console.log(title)
 
     const { data: bikes, isLoading } = useQuery({
         queryKey: ['bikes', _id],
@@ -33,9 +36,17 @@ const CategoryWiseBikes = () => {
                    bikes.map(bike => <BikeCard 
                     key={bike._id} 
                     bike={bike}
+                    setBookingInfo={setBookingInfo}
                     />) 
                 }
             </div>
+            {
+                !!bookingInfo && !!user &&
+                <BookingModal 
+                    bookingInfo={bookingInfo}
+                    setBookingInfo={setBookingInfo}
+                />
+            }
         </div>
     );
 };

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { BsCheckCircleFill } from 'react-icons/bs';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import getFormattedToday from '../../../utils/getFormattedToday';
 
-const BikeCard = ({bike}) => {
+const BikeCard = ({bike, setBookingInfo}) => {
+    const {user} = useContext(AuthContext);
     const {name, img, condition, resalePrice, originalPrice, 
         purchaseYear, location, postedOn, seller} = bike;
     
     const currentYear = new Date().getFullYear();
     const yearsUsed = currentYear - purchaseYear;
+
+    const handleBookNow = () => {
+        if (!user) {
+            return toast.error("Please login to book this product");
+        }
+        setBookingInfo(bike);
+    }
 
     return (
         <div className="card bg-base-100 shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)]">
@@ -43,7 +53,7 @@ const BikeCard = ({bike}) => {
                     
                 </div>
                 <div className="text-center">
-                    <button className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</button>
+                    <label htmlFor="booking-modal" onClick={handleBookNow} className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</label>
                 </div>
             </div>
         </div>
