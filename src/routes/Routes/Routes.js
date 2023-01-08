@@ -3,10 +3,14 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 import Main from "../../layouts/Main";
 import Blogs from "../../pages/Blogs/Blogs";
 import CategoryWiseBikes from "../../pages/CategoryWiseBikes/CategoryWiseBikes/CategoryWiseBikes";
+import Buyers from "../../pages/Dashboard/Buyers/Buyers";
 import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
+import ReportedItems from "../../pages/Dashboard/ReportedItems/ReportedItems";
+import Sellers from "../../pages/Dashboard/Sellers/Sellers";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import SignUp from "../../pages/SignUp/SignUp";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import BuyerRoute from "../BuyerRoute/BuyerRoute";
 
 const router = createBrowserRouter([
@@ -44,7 +48,19 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/orders',
                 element: <BuyerRoute><MyOrders /></BuyerRoute>
-            }
+            },
+            {
+                path: '/dashboard/sellers',
+                element: <AdminRoute><Sellers /></AdminRoute>
+            },
+            {
+                path: '/dashboard/buyers',
+                element: <AdminRoute><Buyers /></AdminRoute>
+            },
+            {
+                path: '/dashboard/reported',
+                element: <AdminRoute><ReportedItems /></AdminRoute>
+            },
         ]
     }
 ])

@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
+    const [isAdmin, isAdminLoading] = useAdmin(user?.email);
     const navigate = useNavigate();
 
     const menuItems = <>
@@ -19,7 +21,6 @@ const Navbar = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
-                localStorage.removeItem('accessToken');
                 navigate('/login');
             })
             .catch(err => console.error(err));
@@ -63,7 +64,14 @@ const Navbar = () => {
                                                 <li><Link to="/dashboard/orders">My Orders</Link></li>
                                             </>
                                         }
-                                        <li><Link>Item 2</Link></li>
+                                        {
+                                            isAdmin && !isAdminLoading &&
+                                            <>
+                                                <li><Link to="/dashboard/sellers">All Sellers</Link></li>
+                                                <li><Link to="/dashboard/buyers">All Buyers</Link></li>
+                                                <li><Link to="/dashboard/reported">Reported Items</Link></li>
+                                            </>
+                                        }
                                     </ul>
                                 </div>
 

@@ -3,10 +3,12 @@ import Navbar from '../pages/Shared/Navbar/Navbar';
 import { Link, Outlet } from 'react-router-dom';
 import useBuyer from '../hooks/useBuyer';
 import { AuthContext } from '../contexts/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext)
     const [isBuyer] = useBuyer(user?.email);
+    const [isAdmin] = useAdmin(user?.email);
 
     return (
         <>
@@ -27,6 +29,20 @@ const DashboardLayout = () => {
                             <>
                                 <li className='border-2 rounded-lg mb-2'>
                                     <Link className='font-medium text-lg' to="/dashboard/orders">My Orders</Link>
+                                </li>
+                            </>
+                        }
+                        {
+                            isAdmin &&
+                            <>
+                                <li className='border-2 rounded-lg mb-2'>
+                                    <Link className='font-medium text-lg' to="/dashboard/sellers">All Sellers</Link>
+                                </li>
+                                <li className='border-2 rounded-lg mb-2'>
+                                    <Link className='font-medium text-lg' to="/dashboard/buyers">All Buyers</Link>
+                                </li>
+                                <li className='border-2 rounded-lg mb-2'>
+                                    <Link className='font-medium text-lg' to="/dashboard/reported">Reported Items</Link>
                                 </li>
                             </>
                         }
