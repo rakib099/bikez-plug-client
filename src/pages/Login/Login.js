@@ -32,12 +32,12 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUserEmail(user.email);
+                e.target.reset();
             })
             .catch(err => {
                 console.error(err)
                 setFirebaseError(err.message);
             });
-        e.target.reset();
     }
 
     // Google Login

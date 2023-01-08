@@ -6,7 +6,7 @@ import useBuyer from '../../../hooks/useBuyer';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [isBuyer] = useBuyer(user?.email);
+    const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
     const navigate = useNavigate();
 
     const menuItems = <>
@@ -58,7 +58,7 @@ const Navbar = () => {
                                     <label tabIndex={0} className="btn btn-ghost normal-case text-lg py-3">Dashboard</label>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                                         {
-                                            isBuyer &&
+                                            isBuyer && !isBuyerLoading &&
                                             <>
                                                 <li><Link to="/dashboard/orders">My Orders</Link></li>
                                             </>

@@ -10,14 +10,12 @@ const useBuyer = email => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if (data.isBuyer) {
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
                 setIsBuyer(data.isBuyer);
                 setIsBuyerLoading(false);
-            }
-        })
+            })
     }
     return [isBuyer, isBuyerLoading];
 }
