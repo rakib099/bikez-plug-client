@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Spinner from '../../../components/Spinner/Spinner';
+import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import BuyersRow from './BuyersRow';
 
 const Buyers = () => {
-    const { data: buyers, isLoading } = useQuery({
+    const [buyer, setBuyer] = useState(null);
+    const { data: buyers, isLoading, refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/buyers', {
@@ -21,6 +24,24 @@ const Buyers = () => {
         return <Spinner />
     }
 
+    const handleDeleteBuyer = ({_id}) => {
+        fetch(`http://localhost:5000/buyers/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.deletedCount) {
+                setBuyer(null);
+                refetch();
+                toast.success("Buyer successfully removed!");
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
     return (
         <div>
             <h3 className='text-2xl font-semibold text-center mb-4'>All Buyers</h3>
@@ -32,7 +53,6 @@ const Buyers = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Delete</th>
-                            <th>Verification</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,11 +61,20 @@ const Buyers = () => {
                                 key={buyer._id}
                                 buyer={buyer}
                                 idx={idx}
+                                setBuyer={setBuyer}
                             />)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                !!buyer && 
+                <ConfirmModal 
+                    title={`Are you sure, you want to remove ${buyer.name}`}
+                    modalData={buyer}
+                    successAction={handleDeleteBuyer}
+                />
+            }
         </div>
     );
 };
