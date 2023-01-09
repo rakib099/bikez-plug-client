@@ -4,7 +4,7 @@ import Spinner from '../../../components/Spinner/Spinner';
 import SellerRow from './SellerRow';
 
 const Sellers = () => {
-    const { data: sellers, isLoading } = useQuery({
+    const { data: sellers, isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/sellers', {
@@ -41,6 +41,7 @@ const Sellers = () => {
                                 key={seller._id} 
                                 seller={seller}
                                 idx={idx}
+                                refetch={refetch}
                             />)
                         }
                     </tbody>

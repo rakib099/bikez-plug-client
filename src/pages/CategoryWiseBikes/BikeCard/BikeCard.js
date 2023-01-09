@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { BsCheckCircleFill } from 'react-icons/bs';
+import Spinner from '../../../components/Spinner/Spinner';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useVerification from '../../../hooks/useVerification';
 import getFormattedToday from '../../../utils/getFormattedToday';
@@ -10,11 +11,12 @@ const BikeCard = ({ bike, setBookingInfo }) => {
     const { name, img, condition, resalePrice, originalPrice,
         purchaseYear, location, postedOn, seller, sellerEmail } = bike;
 
-    const [isSellerVerified] = useVerification(sellerEmail);
+    const [isSellerVerified, verifyLoading] = useVerification(sellerEmail);
 
     const currentYear = new Date().getFullYear();
     const yearsUsed = currentYear - purchaseYear;
 
+    
     const handleBookNow = () => {
         if (!user) {
             return toast.error("Please login to book this product");
