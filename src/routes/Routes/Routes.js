@@ -7,6 +7,7 @@ import Buyers from "../../pages/Dashboard/Buyers/Buyers";
 import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
 import ReportedItems from "../../pages/Dashboard/ReportedItems/ReportedItems";
 import Sellers from "../../pages/Dashboard/Sellers/Sellers";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import SignUp from "../../pages/SignUp/SignUp";
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <DashboardLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/dashboard/orders',
