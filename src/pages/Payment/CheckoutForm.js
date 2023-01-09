@@ -1,5 +1,5 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import './CheckoutForm.css';
+import './CheckoutForm.module.css';
 import React, { useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 
@@ -93,7 +93,7 @@ const CheckoutForm = ({ clientSecret, booking }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form className='payment-form' onSubmit={handleSubmit}>
                 <CardElement
                     className='border bottom-4'
                     options={{

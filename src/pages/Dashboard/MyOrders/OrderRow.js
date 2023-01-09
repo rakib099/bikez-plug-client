@@ -30,7 +30,7 @@ const OrderRow = ({ order }) => {
             <td>{bookedOn}</td>
             <th>
                 {
-                    order.paid ?
+                    paid ?
                     <span className="text-primary font-medium ml-1">Paid</span>
                     :
                     <Link to={`/dashboard/payment/${_id}`}><button className="btn btn-primary btn-sm">Pay</button></Link>

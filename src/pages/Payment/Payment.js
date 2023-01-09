@@ -33,7 +33,7 @@ const Payment = () => {
     }
 
     return (
-        <div className='bg-[#F1F5F9] px-12 pt-12 pb-16'>
+        <div className='bg-white rounded-lg px-12 pt-12 pb-16'>
             <h3 className=' text-2xl font-bold mb-5'>Payment for {bike}</h3>
             <p className="opacity-75 mb-3">Booked on: {bookedOn}</p>
             <p className="text-xl font-bold">Please pay ${price}</p>

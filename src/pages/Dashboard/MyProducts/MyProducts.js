@@ -72,6 +72,7 @@ const MyProducts = () => {
                                 key={product._id}
                                 product={product}
                                 setBike={setBike}
+                                refetch={refetch}
                             />)
                         }
                     </tbody>

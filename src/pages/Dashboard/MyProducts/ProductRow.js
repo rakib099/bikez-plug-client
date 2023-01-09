@@ -1,7 +1,33 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
-const ProductRow = ({product, setBike}) => {
-    const { img, name, resalePrice, status, advertised } = product;
+const ProductRow = ({ product, setBike, refetch }) => {
+    const { _id, img, name, resalePrice, status, advertised } = product;
+
+    const handleAdvertise = () => {
+        console.log(_id);
+        fetch(`http://localhost:5000/bikes/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ advertised })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    if (!advertised) {
+                        toast.success("Item successfully advertised!")
+                    }
+                    else {
+                        toast.error("Advertisement Revoked!")
+                    }
+                }
+            })
+            .catch(err => console.error(err));
+    }
 
     return (
         <tr>
@@ -34,8 +60,12 @@ const ProductRow = ({product, setBike}) => {
             </th>
             <td>
                 {
-                    !advertised && 
-                    <button className="btn bg-blue-500 border-none hover:bg-blue-600 text-white btn-sm">Advertise</button>
+                    !advertised && status === 'unsold' &&
+                    <button onClick={handleAdvertise} className="btn bg-blue-500 border-none hover:bg-blue-600 text-white btn-sm">Advertise</button>
+                }
+                {
+                    advertised && status === 'unsold' &&
+                    <p onClick={handleAdvertise} className="text-primary font-medium btn btn-ghost btn-sm normal-case">Advertised</p>
                 }
             </td>
         </tr>

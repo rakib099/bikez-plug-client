@@ -8,14 +8,18 @@ import useVerification from '../../../hooks/useVerification';
 const BikeCard = ({ bike, setBookingInfo }) => {
     const { user } = useContext(AuthContext);
     const { _id, name, img, condition, resalePrice, originalPrice,
-        purchaseYear, location, postedOn, seller, sellerEmail } = bike;
+        purchaseYear, location, postedOn, seller, sellerEmail, status } = bike;
 
     const [isSellerVerified] = useVerification(sellerEmail);
 
     const currentYear = new Date().getFullYear();
     const yearsUsed = currentYear - purchaseYear;
 
-    
+    if (status === "Sold") {
+        return;
+    }
+
+
     const handleBookNow = () => {
         if (!user) {
             return toast.error("Please login to book this product");
