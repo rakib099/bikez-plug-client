@@ -2,13 +2,16 @@ import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useVerification from '../../../hooks/useVerification';
 import getFormattedToday from '../../../utils/getFormattedToday';
 
-const BikeCard = ({bike, setBookingInfo}) => {
-    const {user} = useContext(AuthContext);
-    const {name, img, condition, resalePrice, originalPrice, 
-        purchaseYear, location, postedOn, seller} = bike;
-    
+const BikeCard = ({ bike, setBookingInfo }) => {
+    const { user } = useContext(AuthContext);
+    const { name, img, condition, resalePrice, originalPrice,
+        purchaseYear, location, postedOn, seller, sellerEmail } = bike;
+
+    const [isSellerVerified] = useVerification(sellerEmail);
+
     const currentYear = new Date().getFullYear();
     const yearsUsed = currentYear - purchaseYear;
 
@@ -30,7 +33,10 @@ const BikeCard = ({bike, setBookingInfo}) => {
                     <div className="flex justify-between">
                         <p className="flex items-center gap-2">
                             <span className='text-gray-500'>{seller}</span>
-                            <BsCheckCircleFill title='Verified Seller' className='text-primary text-lg cursor-pointer' />
+                            {
+                                isSellerVerified &&
+                                <BsCheckCircleFill title='Verified Seller' className='text-primary text-lg cursor-pointer' />
+                            }
                         </p>
 
                     </div>
@@ -50,7 +56,7 @@ const BikeCard = ({bike, setBookingInfo}) => {
                         </div>
                         <div className="badge badge-outline">{postedOn}</div>
                     </div>
-                    
+
                 </div>
                 <div className="text-center">
                     <label htmlFor="booking-modal" onClick={handleBookNow} className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</label>
