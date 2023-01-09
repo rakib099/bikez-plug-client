@@ -31,15 +31,15 @@ const Sellers = () => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data.deletedCount) {
-                setSeller(null);
-                refetch();
-                toast.success("Seller successfully removed!");
-            }
-        })
-        .catch(err => console.error(err));
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    setSeller(null);
+                    refetch();
+                    toast.success("Seller successfully removed!");
+                }
+            })
+            .catch(err => console.error(err));
     }
 
     return (

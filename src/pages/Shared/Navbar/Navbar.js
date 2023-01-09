@@ -35,6 +35,7 @@ const Navbar = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         {menuItems}
+                        <li className='font-semibold text-lg'><button onClick={handleLogOut}>Log Out</button></li>
                     </ul>
                 </div>
                 <Link to="/">
@@ -75,7 +76,7 @@ const Navbar = () => {
                                     </ul>
                                 </div>
 
-                                <li className='font-semibold text-lg'><button onClick={handleLogOut}>Log Out</button></li>
+                                <li className='font-semibold hidden lg:block text-lg'><button onClick={handleLogOut}>Log Out</button></li>
                             </>
                             :
                             <>

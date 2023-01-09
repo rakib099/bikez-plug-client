@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { BsCheckCircleFill } from 'react-icons/bs';
-import Spinner from '../../../components/Spinner/Spinner';
+import { BsCheckCircleFill, BsArrowRight } from 'react-icons/bs';
+import { HiArrowNarrowRight } from 'react-icons/hi';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useVerification from '../../../hooks/useVerification';
-import getFormattedToday from '../../../utils/getFormattedToday';
 
 const BikeCard = ({ bike, setBookingInfo }) => {
     const { user } = useContext(AuthContext);
-    const { name, img, condition, resalePrice, originalPrice,
+    const { _id, name, img, condition, resalePrice, originalPrice,
         purchaseYear, location, postedOn, seller, sellerEmail } = bike;
 
-    const [isSellerVerified, verifyLoading] = useVerification(sellerEmail);
+    const [isSellerVerified] = useVerification(sellerEmail);
 
     const currentYear = new Date().getFullYear();
     const yearsUsed = currentYear - purchaseYear;
@@ -22,6 +21,24 @@ const BikeCard = ({ bike, setBookingInfo }) => {
             return toast.error("Please login to book this product");
         }
         setBookingInfo(bike);
+    }
+
+    const handleReportItem = () => {
+        fetch(`http://localhost:5000/bikes/reported/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.modifiedCount) {
+                toast.success("Item successfully reported!");
+            }
+        })
+        .catch(err => console.error(err));
     }
 
     return (
@@ -60,8 +77,11 @@ const BikeCard = ({ bike, setBookingInfo }) => {
                     </div>
 
                 </div>
-                <div className="text-center">
+                <div className="flex items-center justify-between">
                     <label htmlFor="booking-modal" onClick={handleBookNow} className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</label>
+                    <button onClick={handleReportItem} className="flex items-center gap-2 text-error hover:text-red-500 font-bold">
+                        Report <HiArrowNarrowRight />
+                    </button>
                 </div>
             </div>
         </div>
