@@ -3,8 +3,10 @@ import DashboardLayout from "../../layouts/DashboardLayout";
 import Main from "../../layouts/Main";
 import Blogs from "../../pages/Blogs/Blogs";
 import CategoryWiseBikes from "../../pages/CategoryWiseBikes/CategoryWiseBikes/CategoryWiseBikes";
+import AddProduct from "../../pages/Dashboard/AddProduct/AddProduct";
 import Buyers from "../../pages/Dashboard/Buyers/Buyers";
 import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
+import MyProducts from "../../pages/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../../pages/Dashboard/ReportedItems/ReportedItems";
 import Sellers from "../../pages/Dashboard/Sellers/Sellers";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
@@ -13,6 +15,7 @@ import Login from "../../pages/Login/Login";
 import SignUp from "../../pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import BuyerRoute from "../BuyerRoute/BuyerRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 const router = createBrowserRouter([
     {
@@ -63,6 +66,14 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/reported',
                 element: <AdminRoute><ReportedItems /></AdminRoute>
+            },
+            {
+                path: '/dashboard/add-product',
+                element: <SellerRoute><AddProduct /></SellerRoute>
+            },
+            {
+                path: '/dashboard/my-products',
+                element: <SellerRoute><MyProducts /></SellerRoute>
             },
         ]
     }

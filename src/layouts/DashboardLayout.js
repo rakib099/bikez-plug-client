@@ -4,11 +4,13 @@ import { Link, Outlet } from 'react-router-dom';
 import useBuyer from '../hooks/useBuyer';
 import { AuthContext } from '../contexts/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
+import useSeller from '../hooks/useSeller';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext)
     const [isBuyer] = useBuyer(user?.email);
     const [isAdmin] = useAdmin(user?.email);
+    const [isSeller] = useSeller(user?.email);
 
     return (
         <>
@@ -17,7 +19,6 @@ const DashboardLayout = () => {
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col p-5 bg-[#E8F4FF]">
                     {/* <!-- Page content here --> */}
-                    {/* <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
                     <Outlet />
                 </div>
                 <div className="drawer-side">
@@ -43,6 +44,17 @@ const DashboardLayout = () => {
                                 </li>
                                 <li className='border-2 rounded-lg mb-2'>
                                     <Link className='font-medium text-lg' to="/dashboard/reported">Reported Items</Link>
+                                </li>
+                            </>
+                        }
+                        {
+                            isSeller &&
+                            <>
+                                <li className='border-2 rounded-lg mb-2'>
+                                    <Link className='font-medium text-lg' to="/dashboard/add-product">Add a product</Link>
+                                </li>
+                                <li className='border-2 rounded-lg mb-2'>
+                                    <Link className='font-medium text-lg' to="/dashboard/my-products">My Products</Link>
                                 </li>
                             </>
                         }

@@ -4,11 +4,13 @@ import logo from '../../../assets/logo/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
+import useSeller from '../../../hooks/useSeller';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
     const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+    const [isSeller, isSellerLoading] = useSeller(user?.email);
     const navigate = useNavigate();
 
     const menuItems = <>
@@ -71,6 +73,13 @@ const Navbar = () => {
                                                 <li><Link to="/dashboard/sellers">All Sellers</Link></li>
                                                 <li><Link to="/dashboard/buyers">All Buyers</Link></li>
                                                 <li><Link to="/dashboard/reported">Reported Items</Link></li>
+                                            </>
+                                        }
+                                        {
+                                            isSeller && !isSellerLoading &&
+                                            <>
+                                                <li><Link to="/dashboard/add-product">Add a product</Link></li>
+                                                <li><Link to="/dashboard/my-products">My Products</Link></li>
                                             </>
                                         }
                                     </ul>
