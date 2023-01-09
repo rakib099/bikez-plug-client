@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
 
-const SellerRow = ({ seller, idx, refetch }) => {
+const SellerRow = ({ seller, idx, refetch, setSeller }) => {
 
     const handleVerify = () => {
         fetch(`http://localhost:5000/sellers/${seller._id}`, {
@@ -27,7 +27,7 @@ const SellerRow = ({ seller, idx, refetch }) => {
             <td><div className="font-semibold">{seller.name}</div></td>
             <td>{seller.email}</td>
             <td>
-                <button className="btn bg-red-400 border-none hover:bg-red-500 btn-sm">Remove Seller</button>
+                <label htmlFor='confirm-modal' onClick={() => setSeller(seller)} className="btn bg-red-400 border-none hover:bg-red-500 btn-sm">Remove Seller</label>
             </td>
             <td>
                 {
