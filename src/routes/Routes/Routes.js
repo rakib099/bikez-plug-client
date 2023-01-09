@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import Main from "../../layouts/Main";
 import Blogs from "../../pages/Blogs/Blogs";
@@ -12,6 +12,7 @@ import Sellers from "../../pages/Dashboard/Sellers/Sellers";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
+import Payment from "../../pages/Payment/Payment";
 import SignUp from "../../pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import BuyerRoute from "../BuyerRoute/BuyerRoute";
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <CategoryWiseBikes />,
-                loader: ({params}) => fetch(`http://localhost:5000/category-titles/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/category-titles/${params.id}`)
             }
         ]
     },
@@ -75,6 +76,15 @@ const router = createBrowserRouter([
                 path: '/dashboard/my-products',
                 element: <SellerRoute><MyProducts /></SellerRoute>
             },
+            {
+                path: '/dashboard/payment/:id',
+                element: <BuyerRoute><Payment /></BuyerRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`, {
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+            }
         ]
     }
 ])

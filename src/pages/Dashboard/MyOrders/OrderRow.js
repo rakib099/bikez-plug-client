@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const OrderRow = ({ order }) => {
-    const { img, bike, price, bookedOn } = order;
+    const { _id, img, bike, price, bookedOn, paid } = order;
 
     return (
         <tr>
@@ -30,9 +31,9 @@ const OrderRow = ({ order }) => {
             <th>
                 {
                     order.paid ?
-                    <div className="text-primary">Paid</div>
+                    <span className="text-primary font-medium ml-1">Paid</span>
                     :
-                    <button className="btn btn-primary btn-sm">Pay</button>
+                    <Link to={`/dashboard/payment/${_id}`}><button className="btn btn-primary btn-sm">Pay</button></Link>
                 }
             </th>
         </tr>
