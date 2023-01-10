@@ -33,11 +33,11 @@ const Payment = () => {
     }
 
     return (
-        <div className='bg-white rounded-lg px-12 pt-12 pb-16'>
+        <div className='bg-[#F1F5F9] rounded-lg lg:px-12 pt-12 pb-16'>
             <h3 className=' text-2xl font-bold mb-5'>Payment for {bike}</h3>
             <p className="opacity-75 mb-3">Booked on: {bookedOn}</p>
             <p className="text-xl font-bold">Please pay ${price}</p>
-            <div className="w-96 mt-4">
+            <div className="lg:w-1/2 2xl:w-96 mt-4">
                 <Elements stripe={stripePromise}>
                     <CheckoutForm
                         booking={{ _id, bikeId, price, name, email }}
