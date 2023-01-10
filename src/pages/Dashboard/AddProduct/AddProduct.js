@@ -54,6 +54,13 @@ const AddProduct = () => {
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
+                                <span className="label-text">Upload Image</span>
+                                <span className="label-text-alt">Size: 500 x 292</span>
+                            </label>
+                            <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs" />
+                        </div>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
                                 <span className="label-text">Year of Purchase</span>
                             </label>
                             <select className="select select-bordered" defaultValue='2023'>
@@ -72,15 +79,10 @@ const AddProduct = () => {
                             <input type="number" placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
                         </div>
                         <SelectLocation />
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Upload Image</span>
-                                <span className="label-text-alt">Size: 500 x 292</span>
-                            </label>
-                            <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
-                        </div>
                     </div>
-                    <input type="submit" value="Add" className="btn btn-info border-none mt-4" />
+                    <div className="text-center">
+                        <input type="submit" value="Add Product" className="btn w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none mt-5" />
+                    </div>
                 </form>
             </div>
         </div>
