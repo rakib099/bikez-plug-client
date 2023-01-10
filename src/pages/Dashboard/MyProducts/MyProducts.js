@@ -67,7 +67,7 @@ const MyProducts = () => {
                                     <th>Item & Price</th>
                                     <th>Status</th>
                                     <th>Delete</th>
-                                    <th>Advertisement</th>
+                                    <th>Toggle</th>
                                 </tr>
                             </thead>
                             <tbody>

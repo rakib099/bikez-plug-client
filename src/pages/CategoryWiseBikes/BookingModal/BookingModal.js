@@ -5,7 +5,7 @@ import getFormattedToday from '../../../utils/getFormattedToday';
 
 const BookingModal = ({ bookingInfo, setBookingInfo }) => {
     const { user } = useContext(AuthContext);
-    const { _id, name, resalePrice, img } = bookingInfo;
+    const { _id, name, resalePrice, img, sellerEmail } = bookingInfo;
 
     const currentDate = getFormattedToday();
 
@@ -23,6 +23,7 @@ const BookingModal = ({ bookingInfo, setBookingInfo }) => {
             email,
             bike: bookingInfo.name,
             bikeId: _id,
+            sellerEmail,
             img,
             price: resalePrice,
             phone,
