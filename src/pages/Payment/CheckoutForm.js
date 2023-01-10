@@ -2,6 +2,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './CheckoutForm.css';
 import React, { useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
+import { toast } from 'react-hot-toast';
 
 const CheckoutForm = ({ clientSecret, booking }) => {
     const [cardError, setCardError] = useState('');
@@ -82,6 +83,7 @@ const CheckoutForm = ({ clientSecret, booking }) => {
                         .then(data => {
                             if (data.insertedId) {
                                 setSuccess('Congrats! Your payment has been completed');
+                                toast.success('Payment Successfully Completed!')
                                 setTransactionId(result.paymentIntent.id);
                                 setProcessing(false);
                             }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo/logo.png';
+import Spinner from '../../../components/Spinner/Spinner';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
@@ -19,6 +20,7 @@ const Navbar = () => {
 
 
     </>;
+
 
     const handleLogOut = () => {
         logOut()
@@ -82,6 +84,7 @@ const Navbar = () => {
                                                 <li><Link to="/dashboard/my-products">My Products</Link></li>
                                             </>
                                         }
+
                                     </ul>
                                 </div>
 

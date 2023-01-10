@@ -35,17 +35,17 @@ const BikeCard = ({ bike, setBookingInfo }) => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if (data.modifiedCount) {
-                toast.success("Item successfully reported!");
-            }
-            else if (data.modifiedCount === 0) {
-                toast.error("Item is already reported!")
-            }
-        })
-        .catch(err => console.error(err));
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount) {
+                    toast.success("Item successfully reported!");
+                }
+                else if (data.modifiedCount === 0) {
+                    toast.error("Item is already reported!")
+                }
+            })
+            .catch(err => console.error(err));
     }
 
     return (
@@ -86,9 +86,12 @@ const BikeCard = ({ bike, setBookingInfo }) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <label htmlFor="booking-modal" onClick={handleBookNow} className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</label>
-                    <button onClick={handleReportItem} className="flex items-center gap-2 text-error hover:text-red-500 font-bold">
-                        Report <HiArrowNarrowRight />
-                    </button>
+                    {
+                        !!user &&
+                        <button onClick={handleReportItem} className="flex items-center gap-2 text-error hover:text-red-500 font-bold">
+                            Report <HiArrowNarrowRight />
+                        </button>
+                    }
                 </div>
             </div>
         </div>

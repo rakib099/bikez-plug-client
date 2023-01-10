@@ -18,6 +18,7 @@ const SignUp = () => {
     useEffect(() => {
         if (token) {
             navigate('/');
+            window.location.reload();
         }
 
     }, [token, navigate]);
