@@ -59,6 +59,7 @@ const ReportedItems = () => {
                             <th>Item & Price</th>
                             <th>Category</th>
                             <th>Delete</th>
+                            <th>Ignore</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,6 +68,7 @@ const ReportedItems = () => {
                                 key={item._id}
                                 item={item}
                                 setReportedItem={setReportedItem}
+                                refetch={refetch}
                             />)
                         }
                     </tbody>
