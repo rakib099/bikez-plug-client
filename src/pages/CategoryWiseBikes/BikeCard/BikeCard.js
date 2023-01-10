@@ -28,7 +28,7 @@ const BikeCard = ({ bike, setBookingInfo }) => {
     }
 
     const handleReportItem = () => {
-        fetch(`http://localhost:5000/bikes/reported/${_id}`, {
+        fetch(`http://localhost:5000/reported/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -40,6 +40,9 @@ const BikeCard = ({ bike, setBookingInfo }) => {
             console.log(data);
             if (data.modifiedCount) {
                 toast.success("Item successfully reported!");
+            }
+            else if (data.modifiedCount === 0) {
+                toast.error("Item is already reported!")
             }
         })
         .catch(err => console.error(err));

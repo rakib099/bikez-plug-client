@@ -100,7 +100,7 @@ const SignUp = () => {
     
     return (
         <div className='flex justify-center items-center'>
-            <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] w-4/6 lg:w-1/4 p-6 rounded-lg bg-slate-100 mt-5 mb-12'>
+            <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] lg:w-1/4 p-6 rounded-lg bg-slate-100 mt-5 mb-12'>
                 <h3 className='text-xl text-center font-semibold'>Sign Up</h3>
                 <form onSubmit={handleSubmit(handleSignUp)}>
                     <div className="form-control w-full max-w-xs">

@@ -5,7 +5,6 @@ const ProductRow = ({ product, setBike, refetch }) => {
     const { _id, img, name, resalePrice, status, advertised } = product;
 
     const handleAdvertise = () => {
-        console.log(_id);
         fetch(`http://localhost:5000/bikes/${_id}`, {
             method: 'PATCH',
             headers: {
@@ -65,7 +64,7 @@ const ProductRow = ({ product, setBike, refetch }) => {
                 }
                 {
                     advertised && status === 'unsold' &&
-                    <p onClick={handleAdvertise} className="text-primary font-medium btn btn-ghost btn-sm normal-case">Advertised</p>
+                    <p onClick={handleAdvertise} className="text-primary font-medium btn btn-ghost btn-sm normal-case" title='Click again to unadvertise'>Advertised</p>
                 }
             </td>
         </tr>

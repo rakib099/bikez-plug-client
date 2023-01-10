@@ -45,21 +45,18 @@ const ReportedItems = () => {
 
     return (
         <div>
-            <h3 className='text-2xl font-semibold text-center mb-4'>Reported Items</h3>
+            <h3 className='text-2xl font-semibold text-center mb-4'>Reported Items ({reportedItems.length})</h3>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
+                            <th> 
                             </th>
                             <th>Picture</th>
                             <th>Item & Price</th>
                             <th>Category</th>
                             <th>Delete</th>
-                            <th>Ignore</th>
+                            <th>Ignore Item</th>
                         </tr>
                     </thead>
                     <tbody>

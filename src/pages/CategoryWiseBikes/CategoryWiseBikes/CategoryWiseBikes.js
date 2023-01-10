@@ -8,8 +8,8 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const CategoryWiseBikes = () => {
     const category = useLoaderData();
-    const {user} = useContext(AuthContext);
-    const [bookingInfo, setBookingInfo] = useState(null);
+    const {user, bookingInfo, setBookingInfo} = useContext(AuthContext);
+    
     const { _id, title } = category;
 
     const { data: bikes, isLoading } = useQuery({

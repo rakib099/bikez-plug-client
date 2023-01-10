@@ -8,6 +8,7 @@ const auth = getAuth(app);
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [bookingInfo, setBookingInfo] = useState(null);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -54,7 +55,9 @@ const AuthProvider = ({children}) => {
         updateUserProfile,
         signIn,
         logOut,
-        googleLogin
+        googleLogin,
+        bookingInfo,
+        setBookingInfo
     }
 
     return (

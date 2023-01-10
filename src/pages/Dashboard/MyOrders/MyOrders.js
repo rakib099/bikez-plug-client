@@ -36,9 +36,6 @@ const MyOrders = () => {
                             <thead>
                                 <tr>
                                     <th>
-                                        <label>
-                                            <input type="checkbox" className="checkbox" />
-                                        </label>
                                     </th>
                                     <th>Picture</th>
                                     <th>Item & Price</th>

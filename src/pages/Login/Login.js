@@ -70,7 +70,7 @@ const Login = () => {
 
     return (
         <div className='lg:h-[37rem] flex justify-center items-center'>
-            <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] w-4/6 lg:w-1/4 p-6 rounded-lg bg-slate-100 my-5 lg:my-0'>
+            <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] lg:w-1/4 p-6 rounded-lg bg-slate-100 my-5 lg:my-0'>
                 <h3 className='text-xl text-center font-semibold'>Login</h3>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
