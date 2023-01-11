@@ -1,0 +1,31 @@
+.questions-container {
+    /* padding: 0 55px; */
+}
+.title {
+    color: #5c69b7;
+    text-align: center;
+    margin-top: 0;
+}
+.questions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.question {
+    border: 2px solid teal;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.questions-container p, .questions-container  li {
+    font-size: 1.0625rem;
+}
+.questions-container p > span {
+    font-weight: 600;
+}
+
+@media screen and (max-width: 1079px) {
+    .questions {
+        grid-template-columns: 1fr;
+    }
+}

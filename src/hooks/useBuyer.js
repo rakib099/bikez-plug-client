@@ -16,6 +16,7 @@ const useBuyer = email => {
                 setIsBuyer(data.isBuyer);
                 setIsBuyerLoading(false);
             })
+            .catch(err => console.error(err));
     }
     return [isBuyer, isBuyerLoading];
 }

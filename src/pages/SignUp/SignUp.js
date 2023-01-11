@@ -10,6 +10,7 @@ import useToken from '../../hooks/useToken';
 const SignUp = () => {
     const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [signUpLoading, setSignUpLoading] = useState(false);
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [firebaseError, setFirebaseError] = useState('');
     const [token] = useToken(createdUserEmail);
@@ -26,6 +27,7 @@ const SignUp = () => {
     const handleSignUp = (data, e) => {
         const { name, email, password, userType } = data;
         setFirebaseError('');
+        setSignUpLoading(true);
 
         createUser(email, password)
             .then(result => {
@@ -63,6 +65,7 @@ const SignUp = () => {
                 if (data.data.acknowledged) {
                     toast.success('Sign up successful!');
                     setCreatedUserEmail(user.email);
+                    setSignUpLoading(false);
                 }
             })
             .catch(function (error) {
@@ -98,7 +101,7 @@ const SignUp = () => {
             })
             .catch(err => console.error(err));
     }
-    
+
     return (
         <div className='flex justify-center items-center'>
             <div className='shadow-[3px_4px_10px_2px_rgba(0,0,0,0.05)] lg:w-1/4 p-6 rounded-lg bg-slate-100 mt-5 mb-12'>
@@ -145,7 +148,13 @@ const SignUp = () => {
                         </div>
                     </div>
                     <p className="text-error mb-2">{firebaseError}</p>
-                    <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Sign Up" />
+                    {
+                        !!signUpLoading ?
+                            <button className='btn loading border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2'>Loading</button>
+                            :
+                            <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Sign Up" />
+                    }
+
                 </form>
                 <p className='text-sm'>Already have an account? <Link to='/login' className='text-[#1257be]'>Login here.</Link></p>
                 <div className="divider">OR</div>
