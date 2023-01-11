@@ -6,7 +6,7 @@ const useSeller = email => {
     
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/seller?email=${email}`, {
+            fetch(`https://bikez-plug-server.vercel.app/seller?email=${email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

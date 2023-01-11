@@ -62,7 +62,8 @@ const AddProduct = () => {
                     mobile,
                     status: "unsold",
                     advertised: false,
-                    description
+                    description,
+                    reported: false
                 }
                 saveBikeToDB(bike);
             })
@@ -70,7 +71,7 @@ const AddProduct = () => {
 
 
         const saveBikeToDB = (bike) => {
-            fetch('http://localhost:5000/bikes', {
+            fetch('https://bikez-plug-server.vercel.app/bikes', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

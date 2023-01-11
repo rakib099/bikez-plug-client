@@ -11,7 +11,7 @@ const ReportedItems = () => {
     const { data: reportedItems, isLoading, refetch } = useQuery({
         queryKey: ['reportedItems'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/reported', {
+            const res = await fetch('https://bikez-plug-server.vercel.app/reported', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -26,7 +26,7 @@ const ReportedItems = () => {
     }
 
     const handleDeleteItem = ({ _id }) => {
-        fetch(`http://localhost:5000/reported/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/reported/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

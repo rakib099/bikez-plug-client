@@ -6,7 +6,7 @@ const ItemRow = ({ item, setReportedItem, refetch }) => {
 
     const handleUnreport = () => {
         console.log(_id);
-        fetch(`http://localhost:5000/unreport/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/unreport/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

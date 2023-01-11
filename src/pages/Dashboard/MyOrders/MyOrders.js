@@ -10,7 +10,7 @@ const MyOrders = () => {
     const { data: orders, isLoading } = useQuery({
         queryKey: ['bookings', 'orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
+            const res = await fetch(`https://bikez-plug-server.vercel.app/bookings?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

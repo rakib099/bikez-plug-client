@@ -51,7 +51,7 @@ const Login = () => {
                     userType: "Buyer"
                 }
                 // saving user to DB
-                fetch('http://localhost:5000/users', {
+                fetch('https://bikez-plug-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

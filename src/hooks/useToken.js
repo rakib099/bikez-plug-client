@@ -4,7 +4,7 @@ const useToken = email => {
     const [token, setToken] = useState('');
 
     if (email) {
-        fetch(`http://localhost:5000/jwt?email=${email}`)
+        fetch(`https://bikez-plug-server.vercel.app/jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
             if (data.accessToken) {

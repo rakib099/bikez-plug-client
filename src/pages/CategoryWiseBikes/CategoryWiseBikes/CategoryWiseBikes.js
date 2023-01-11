@@ -15,7 +15,7 @@ const CategoryWiseBikes = () => {
     const { data: bikes, isLoading, refetch } = useQuery({
         queryKey: ['bikes', _id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bikes/category/${_id}`);
+            const res = await fetch(`https://bikez-plug-server.vercel.app/bikes/category/${_id}`);
             const data = await res.json();
             return data;
         }

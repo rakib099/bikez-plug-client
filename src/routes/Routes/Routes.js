@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <CategoryWiseBikes />,
-                loader: ({ params }) => fetch(`http://localhost:5000/category-titles/${params.id}`)
+                loader: ({ params }) => fetch(`https://bikez-plug-server.vercel.app/category-titles/${params.id}`)
             }
         ]
     },
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <BuyerRoute><Payment /></BuyerRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`, {
+                loader: ({ params }) => fetch(`https://bikez-plug-server.vercel.app/bookings/${params.id}`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }

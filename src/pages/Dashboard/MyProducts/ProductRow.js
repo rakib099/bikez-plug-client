@@ -5,7 +5,7 @@ const ProductRow = ({ product, setBike, refetch }) => {
     const { _id, img, name, resalePrice, status, advertised } = product;
 
     const handleAdvertise = () => {
-        fetch(`http://localhost:5000/bikes/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/bikes/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

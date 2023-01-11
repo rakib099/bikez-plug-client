@@ -7,10 +7,10 @@ import BookingModal from '../../CategoryWiseBikes/BookingModal/BookingModal';
 
 const AdvertisedItems = () => {
     const { user, bookingInfo, setBookingInfo } = useContext(AuthContext);
-    const { data: bikes, isLoading } = useQuery({
+    const { data: bikes, isLoading, refetch } = useQuery({
         queryKey: ['bikes'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bikes/advertised`, {
+            const res = await fetch(`https://bikez-plug-server.vercel.app/bikes/advertised`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -38,6 +38,7 @@ const AdvertisedItems = () => {
                         key={bike._id}
                         bike={bike}
                         setBookingInfo={setBookingInfo}
+                        refetch={refetch}
                     />)
                 }
             </div>

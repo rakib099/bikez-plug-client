@@ -5,14 +5,13 @@ const useVerification = email => {
     const [verifyLoading, setVerifyLoading] = useState(true);
 
     if (email) {
-        fetch(`http://localhost:5000/verify?email=${email}`, {
+        fetch(`https://bikez-plug-server.vercel.app/verify?email=${email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setIsSellerVerified(data.isSellerVerified);
             setVerifyLoading(false);
         })

@@ -10,7 +10,7 @@ const Buyers = () => {
     const { data: buyers, isLoading, refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyers', {
+            const res = await fetch('https://bikez-plug-server.vercel.app/users/buyers', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -25,7 +25,7 @@ const Buyers = () => {
     }
 
     const handleDeleteBuyer = ({_id}) => {
-        fetch(`http://localhost:5000/buyers/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/buyers/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

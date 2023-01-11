@@ -5,7 +5,7 @@ const useBuyer = email => {
     const [isBuyerLoading, setIsBuyerLoading] = useState(true);
 
     if (email) {
-        fetch(`http://localhost:5000/buyer?email=${email}`, {
+        fetch(`https://bikez-plug-server.vercel.app/buyer?email=${email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

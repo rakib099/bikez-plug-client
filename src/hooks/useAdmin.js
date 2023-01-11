@@ -6,7 +6,7 @@ const useAdmin = email => {
     
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/admin?email=${email}`, {
+            fetch(`https://bikez-plug-server.vercel.app/admin?email=${email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

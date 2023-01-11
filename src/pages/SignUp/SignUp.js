@@ -57,7 +57,7 @@ const SignUp = () => {
 
     // Saving user to DB function
     const saveUserToDB = (user) => {
-        axios.post('http://localhost:5000/users', user)
+        axios.post('https://bikez-plug-server.vercel.app/users', user)
             .then(function (data) {
                 console.log(data);
                 if (data.data.acknowledged) {
@@ -81,7 +81,7 @@ const SignUp = () => {
                     userType: "Buyer"
                 }
                 // saving user to DB
-                fetch('http://localhost:5000/users', {
+                fetch('https://bikez-plug-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

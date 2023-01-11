@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 const SellerRow = ({ seller, idx, refetch, setSeller }) => {
 
     const handleVerify = () => {
-        fetch(`http://localhost:5000/sellers/${seller._id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/sellers/${seller._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

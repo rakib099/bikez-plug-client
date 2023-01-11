@@ -14,7 +14,7 @@ const MyProducts = () => {
     const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products', 'bikes', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bikes?email=${user?.email}`, {
+            const res = await fetch(`https://bikez-plug-server.vercel.app/bikes?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -29,7 +29,7 @@ const MyProducts = () => {
     }
 
     const handleDeleteProduct = ({ _id }) => {
-        fetch(`http://localhost:5000/bikes/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/bikes/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

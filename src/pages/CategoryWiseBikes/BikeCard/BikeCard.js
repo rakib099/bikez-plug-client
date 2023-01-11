@@ -28,7 +28,7 @@ const BikeCard = ({ bike, setBookingInfo, refetch }) => {
     }
 
     const handleReportItem = () => {
-        fetch(`http://localhost:5000/reported/${_id}`, {
+        fetch(`https://bikez-plug-server.vercel.app/reported/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

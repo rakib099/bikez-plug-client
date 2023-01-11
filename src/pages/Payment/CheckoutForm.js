@@ -71,7 +71,7 @@ const CheckoutForm = ({ clientSecret, booking }) => {
                         email
                     }
 
-                    fetch('http://localhost:5000/payments', {
+                    fetch('https://bikez-plug-server.vercel.app/payments', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
