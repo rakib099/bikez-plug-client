@@ -46,42 +46,48 @@ const ReportedItems = () => {
     return (
         <div>
             <h3 className='text-2xl font-semibold text-center mb-4'>Reported Items ({reportedItems.length})</h3>
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th> 
-                            </th>
-                            <th>Picture</th>
-                            <th>Item & Price</th>
-                            <th>Category</th>
-                            <th>Delete</th>
-                            <th>Ignore Item</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            reportedItems.map(item => <ItemRow
-                                key={item._id}
-                                item={item}
-                                setReportedItem={setReportedItem}
-                                refetch={refetch}
-                            />)
-                        }
-                    </tbody>
+            {
+                !reportedItems.length ?
+                    <p className="text-2xl text-medium flex items-center justify-center italic opacity-50 h-40">There is no reported items to show</p>
+                    :
+                    <div className="overflow-x-auto w-full">
+                        <table className="table w-full">
+                            <thead>
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <th>Picture</th>
+                                    <th>Item & Price</th>
+                                    <th>Category</th>
+                                    <th>Delete</th>
+                                    <th>Ignore Item</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    reportedItems.map(item => <ItemRow
+                                        key={item._id}
+                                        item={item}
+                                        setReportedItem={setReportedItem}
+                                        refetch={refetch}
+                                    />)
+                                }
+                            </tbody>
 
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Total</th>
-                            <th>{reportedItems.length} items</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th>{reportedItems.length} items</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
 
-                </table>
-            </div>
+                        </table>
+                    </div>
+            }
+
             {
                 !!reportedItem &&
                 <ConfirmModal

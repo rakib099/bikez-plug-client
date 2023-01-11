@@ -29,7 +29,6 @@ const MyProducts = () => {
     }
 
     const handleDeleteProduct = ({ _id }) => {
-        console.log(_id);
         fetch(`http://localhost:5000/bikes/${_id}`, {
             method: 'DELETE',
             headers: {

@@ -5,10 +5,10 @@ import { HiArrowNarrowRight } from 'react-icons/hi';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useVerification from '../../../hooks/useVerification';
 
-const BikeCard = ({ bike, setBookingInfo }) => {
+const BikeCard = ({ bike, setBookingInfo, refetch }) => {
     const { user } = useContext(AuthContext);
     const { _id, name, img, condition, resalePrice, originalPrice,
-        purchaseYear, location, postedOn, seller, sellerEmail, status } = bike;
+        purchaseYear, location, postedOn, seller, sellerEmail, status, reported } = bike;
 
     const [isSellerVerified] = useVerification(sellerEmail);
 
@@ -39,7 +39,8 @@ const BikeCard = ({ bike, setBookingInfo }) => {
             .then(data => {
                 console.log(data);
                 if (data.modifiedCount) {
-                    toast.success("Item successfully reported!");
+                    refetch();
+                    toast.success("Item successfully reported to Admin!");
                 }
                 else if (data.modifiedCount === 0) {
                     toast.error("Item is already reported!")
@@ -64,7 +65,13 @@ const BikeCard = ({ bike, setBookingInfo }) => {
                                 <BsCheckCircleFill title='Verified Seller' className='text-primary text-lg cursor-pointer' />
                             }
                         </p>
-
+                        {
+                            !!reported &&
+                            <div className="badge badge-outline font-medium badge-error gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                Reported
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="bg-[#E8F4FF] py-3 px-3 rounded-lg mb-2">
@@ -87,7 +94,7 @@ const BikeCard = ({ bike, setBookingInfo }) => {
                 <div className="flex items-center justify-between">
                     <label htmlFor="booking-modal" onClick={handleBookNow} className="btn btn-sm btn-secondary hover:btn-primary px-5">Book now</label>
                     {
-                        !!user &&
+                        !!user && !reported &&
                         <button onClick={handleReportItem} className="flex items-center gap-2 text-error hover:text-red-500 font-bold">
                             Report <HiArrowNarrowRight />
                         </button>

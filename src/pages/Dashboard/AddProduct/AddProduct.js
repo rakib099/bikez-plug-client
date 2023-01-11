@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../../contexts/AuthProvider';
 import getFormattedToday from '../../../utils/getFormattedToday';
@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [processing, setProcessing] = useState(false);
     const navigate = useNavigate();
     const imgHostKey = process.env.REACT_APP_imgbb_key;
     const currentDate = getFormattedToday();
@@ -18,7 +19,7 @@ const AddProduct = () => {
 
 
     const handleAddProduct = (data, e) => {
-        console.log(data);
+        setProcessing(true);
         const { name, category, condition, resalePrice, originalPrice, purchaseYear, location, mobile, description } = data;
         const image = data.image[0];
 
@@ -80,9 +81,10 @@ const AddProduct = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.acknowledged) {
-                        toast.success('Product added successfully!');
                         e.target.reset();
+                        setProcessing(false);
                         navigate('/dashboard/my-products');
+                        toast.success('Product added successfully!');
                     }
                 })
                 .catch(err => console.error(err));
@@ -170,10 +172,16 @@ const AddProduct = () => {
 
 
                     <div className="flex items-end justify-center">
-                        <button type="submit" className="btn w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none lg:h-16 mt-5">
-                            Add Product &nbsp;
-                            <BsArrowRight className='hidden lg:block' />
-                        </button>
+                        {
+                            processing ?
+                                <button className="btn loading w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none lg:h-16 mt-5"></button>
+                                :
+                                <button type="submit" className="btn w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none lg:h-16 mt-5">
+                                    Add Product &nbsp;
+                                    <BsArrowRight className='hidden lg:block' />
+                                </button>
+                        }
+
                     </div>
 
                 </form>

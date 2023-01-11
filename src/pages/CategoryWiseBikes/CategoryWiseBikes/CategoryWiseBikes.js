@@ -12,7 +12,7 @@ const CategoryWiseBikes = () => {
     
     const { _id, title } = category;
 
-    const { data: bikes, isLoading } = useQuery({
+    const { data: bikes, isLoading, refetch } = useQuery({
         queryKey: ['bikes', _id],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/bikes/category/${_id}`);
@@ -37,6 +37,7 @@ const CategoryWiseBikes = () => {
                     key={bike._id} 
                     bike={bike}
                     setBookingInfo={setBookingInfo}
+                    refetch={refetch}
                     />) 
                 }
             </div>
