@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { BsCheckCircleFill, BsArrowRight } from 'react-icons/bs';
+import { BsCheckCircleFill } from 'react-icons/bs';
 import { HiArrowNarrowRight } from 'react-icons/hi';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useVerification from '../../../hooks/useVerification';
