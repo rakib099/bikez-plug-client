@@ -1,30 +1,114 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useForm } from "react-hook-form";
+import { AuthContext } from '../../../contexts/AuthProvider';
+import getFormattedToday from '../../../utils/getFormattedToday';
 import SelectLocation from './SelectLocation';
+import SelectPurchaseYear from './SelectPurchaseYear';
+import { BsArrowRight } from 'react-icons/bs'
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-    const currentYear = new Date().getFullYear();
-    const years = [];
-    for (let i = 1999; i <= currentYear; i++) {
-        years.push(i);
+    const { user } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const imgHostKey = process.env.REACT_APP_imgbb_key;
+    const currentDate = getFormattedToday();
+
+
+
+    const handleAddProduct = (data, e) => {
+        console.log(data);
+        const { name, category, condition, resalePrice, originalPrice, purchaseYear, location, mobile, description } = data;
+        const image = data.image[0];
+
+        let categoryId;
+        if (category === 'Mountain Bikes') {
+            categoryId = '63b91e93cf6d241d3e4d39fe';
+        }
+        else if (category === 'Road Bikes') {
+            categoryId = '63b91e93cf6d241d3e4d39ff';
+        }
+        else if (category === 'Kids Bikes') {
+            categoryId = '63b91e93cf6d241d3e4d3a00';
+        }
+
+
+        // uploading image to imgbb
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                console.log(imgData.data.url);
+                const bike = {
+                    name,
+                    img: imgData.data.url,
+                    category,
+                    categoryId,
+                    condition,
+                    resalePrice: parseFloat(resalePrice),
+                    originalPrice: parseFloat(originalPrice),
+                    purchaseYear: parseInt(purchaseYear),
+                    location,
+                    postedOn: currentDate,
+                    seller: user?.displayName,
+                    sellerEmail: user?.email,
+                    mobile,
+                    status: "unsold",
+                    advertised: false,
+                    description
+                }
+                saveBikeToDB(bike);
+            })
+            .catch(err => console.error(err));
+
+
+        const saveBikeToDB = (bike) => {
+            fetch('http://localhost:5000/bikes', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(bike)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.acknowledged) {
+                        toast.success('Product added successfully!');
+                        e.target.reset();
+                        navigate('/dashboard/my-products');
+                    }
+                })
+                .catch(err => console.error(err));
+        }
     }
+
+
 
     return (
         <div>
             <h3 className='text-2xl font-semibold text-center mb-4'>Add a Product</h3>
             <div className='bg-gray-100 p-7'>
-                <form>
+                <form onSubmit={handleSubmit(handleAddProduct)}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text">Name</span>
+                                <span className="label-text">Product Name</span>
                             </label>
-                            <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                            <input type="text" {...register('name', { required: 'Required field' })} placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                            {errors.name && <p className='text-error' role="alert">{errors.name?.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Product Category</span>
                             </label>
-                            <select className="select select-bordered" defaultValue='Mountain Bikes'>
+                            <select {...register('category')} className="select select-bordered" defaultValue='Mountain Bikes'>
                                 <option value='Mountain Bikes'>Mountain Bikes</option>
                                 <option value='Road Bikes'>Road Bikes</option>
                                 <option value='Kids Bikes'>Kids Bikes</option>
@@ -34,7 +118,7 @@ const AddProduct = () => {
                             <label className="label">
                                 <span className="label-text">Condition</span>
                             </label>
-                            <select className="select select-bordered" defaultValue='Excellent'>
+                            <select {...register('condition')} className="select select-bordered" defaultValue='Excellent'>
                                 <option value='Excellent'>Excellent</option>
                                 <option value='Good'>Good</option>
                                 <option value='Fair'>Fair</option>
@@ -44,45 +128,54 @@ const AddProduct = () => {
                             <label className="label">
                                 <span className="label-text">Resale Price</span>
                             </label>
-                            <input type="number" placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
+                            <input type="number" {...register('resalePrice', { required: 'Required field' })} placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
+                            {errors.resalePrice && <p className='text-error' role="alert">{errors.resalePrice?.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Original Price</span>
                             </label>
-                            <input type="number" placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
+                            <input type="number" {...register('originalPrice', { required: 'Required field' })} placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
+                            {errors.originalPrice && <p className='text-error' role="alert">{errors.originalPrice?.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Upload Image</span>
                                 <span className="label-text-alt">Size: 500 x 292</span>
                             </label>
-                            <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs" />
+                            <input type="file" {...register('image', { required: 'Required field' })} className="file-input file-input-bordered file-input-error w-full max-w-xs" />
+                            {errors.image && <p className='text-error' role="alert">{errors.image?.message}</p>}
                         </div>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Year of Purchase</span>
-                            </label>
-                            <select className="select select-bordered" defaultValue='2023'>
-                                {
-                                    years.map(year => <option
-                                        key={year}
-                                        value={year}
-                                    >{year}</option>)
-                                }
-                            </select>
-                        </div>
+                        <SelectPurchaseYear register={register} />
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Mobile No.</span>
                             </label>
-                            <input type="number" placeholder="Type here" min='20' className="input input-bordered w-full max-w-xs" />
+                            <input type="number" {...register('mobile', { required: 'Required field' })} placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                            {errors.mobile && <p className='text-error' role="alert">{errors.mobile?.message}</p>}
                         </div>
-                        <SelectLocation />
+                        <SelectLocation register={register} />
                     </div>
-                    <div className="text-center">
-                        <input type="submit" value="Add Product" className="btn w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none mt-5" />
+                    <div className="">
+                        <div className="lg:w-1/2">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Description</span>
+                                </label>
+                                <textarea {...register('description')} className="textarea textarea-bordered h-24" placeholder="Type here"></textarea>
+                            </div>
+                        </div>
                     </div>
+
+
+
+                    <div className="flex items-end justify-center">
+                        <button type="submit" className="btn w-full md:max-w-xs bg-blue-500 hover:bg-blue-600 border-none lg:h-16 mt-5">
+                            Add Product &nbsp;
+                            <BsArrowRight className='hidden lg:block' />
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div>

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const SelectLocation = () => {
+const SelectLocation = ({register}) => {
     return (
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">Location</span>
             </label>
-            <select className="select select-bordered" defaultValue='Dhaka, Bangladesh'>
+            <select {...register('location')} className="select select-bordered" defaultValue='Dhaka, Bangladesh'>
                 <option value='Dhaka, Bangladesh'>Dhaka, Bangladesh</option>
                 <option value='Faridpur, Dhaka, Bangladesh'>Faridpur, Dhaka, Bangladesh</option>
                 <option value='Faridpur, Dhaka, Bangladesh'>Uttara, Dhaka, Bangladesh</option>

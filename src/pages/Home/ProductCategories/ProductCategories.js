@@ -1,7 +1,4 @@
 import React from 'react';
-import mountain from '../../../assets/images/mountain-bikes.png';
-import road from '../../../assets/images/road-bikes.png';
-import kids from '../../../assets/images/kids-bikes.png';
 import CategoryCard from './CategoryCard';
 import categoryCardData from '../../../utils/categoryCardData';
 
