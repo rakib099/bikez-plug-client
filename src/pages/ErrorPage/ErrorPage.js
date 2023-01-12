@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Link, useNavigate, useRouteError } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import oops from '../../assets/images/404-error.png';
+import useTitle from '../../hooks/useTitle';
 
 const ErrorPage = () => {
+  useTitle('Oops!');
   const { logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const error = useRouteError();

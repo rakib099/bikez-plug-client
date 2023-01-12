@@ -4,9 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../../components/Spinner/Spinner';
 import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import { toast } from 'react-hot-toast';
+import useTitle from '../../../hooks/useTitle';
 
 const ReportedItems = () => {
     const [reportedItem, setReportedItem] = useState(null);
+    useTitle('Reported Items');
 
     const { data: reportedItems, isLoading, refetch } = useQuery({
         queryKey: ['reportedItems'],

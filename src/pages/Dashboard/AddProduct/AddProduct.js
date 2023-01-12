@@ -7,8 +7,10 @@ import SelectPurchaseYear from './SelectPurchaseYear';
 import { BsArrowRight } from 'react-icons/bs'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../../../hooks/useTitle';
 
 const AddProduct = () => {
+    useTitle('Add a Product');
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [processing, setProcessing] = useState(false);

@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import useToken from '../../hooks/useToken';
 
 const Login = () => {
+    useTitle('Login');
     const { signIn, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [userEmail, setUserEmail] = useState('');

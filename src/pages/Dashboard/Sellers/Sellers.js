@@ -2,11 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Spinner from '../../../components/Spinner/Spinner';
+import useTitle from '../../../hooks/useTitle';
 import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import SellerRow from './SellerRow';
 
 const Sellers = () => {
     const [seller, setSeller] = useState(null);
+    useTitle('All Sellers');
+
     const { data: sellers, isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {

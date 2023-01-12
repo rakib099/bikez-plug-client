@@ -5,9 +5,11 @@ import { toast } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
+    useTitle('Sign Up');
     const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signUpLoading, setSignUpLoading] = useState(false);

@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom'
 import CheckoutForm from './CheckoutForm';
 import Spinner from '../../components/Spinner/Spinner';
+import useTitle from '../../hooks/useTitle';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Payment = () => {
+    useTitle('Payment');
     const [clientSecret, setClientSecret] = useState("");
     const booking = useLoaderData();
     const navigation = useNavigation();

@@ -5,12 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../../components/Spinner/Spinner';
 import BookingModal from '../BookingModal/BookingModal';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 
 const CategoryWiseBikes = () => {
     const category = useLoaderData();
     const {user, bookingInfo, setBookingInfo} = useContext(AuthContext);
     
     const { _id, title } = category;
+    useTitle(title);
 
     const { data: bikes, isLoading, refetch } = useQuery({
         queryKey: ['bikes', _id],

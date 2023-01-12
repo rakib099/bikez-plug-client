@@ -6,10 +6,12 @@ import { async } from '@firebase/util';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Spinner from '../../../components/Spinner/Spinner';
 import { toast } from 'react-hot-toast';
+import useTitle from '../../../hooks/useTitle';
 
 const MyProducts = () => {
     const [bike, setBike] = useState(null);
     const { user } = useContext(AuthContext);
+    useTitle('My Products');
 
     const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products', 'bikes', user?.email],

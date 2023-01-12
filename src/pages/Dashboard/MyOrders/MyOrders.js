@@ -3,9 +3,11 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import OrderRow from './OrderRow';
 import { useQuery } from '@tanstack/react-query'
 import Spinner from '../../../components/Spinner/Spinner';
+import useTitle from '../../../hooks/useTitle';
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
+    useTitle('My Orders');
 
     const { data: orders, isLoading } = useQuery({
         queryKey: ['bookings', 'orders', user?.email],
