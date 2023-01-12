@@ -37,7 +37,6 @@ const BikeCard = ({ bike, setBookingInfo, refetch }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.modifiedCount) {
                     refetch();
                     toast.success("Item successfully reported to Admin!");

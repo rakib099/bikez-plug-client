@@ -20,6 +20,7 @@ const Login = () => {
     useEffect(() => {
         if (token) {
             navigate(from, { replace: true });
+            window.location.reload();
         }
 
     }, [token, navigate, from]);
@@ -32,7 +33,7 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 setUserEmail(user.email);
                 e.target.reset();
             })
@@ -62,7 +63,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                         setUserEmail(user.email);
                     })
                     .catch(err => console.error(err));

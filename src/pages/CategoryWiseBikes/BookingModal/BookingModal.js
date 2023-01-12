@@ -31,7 +31,7 @@ const BookingModal = ({ bookingInfo, setBookingInfo }) => {
             bookedOn: currentDate
         }
 
-        console.log(booking);
+        // console.log(booking);
 
         fetch('https://bikez-plug-server.vercel.app/bookings', {
             method: 'POST',
