@@ -5,6 +5,7 @@ import Blogs from "../../pages/Blogs/Blogs";
 import CategoryWiseBikes from "../../pages/CategoryWiseBikes/CategoryWiseBikes/CategoryWiseBikes";
 import AddProduct from "../../pages/Dashboard/AddProduct/AddProduct";
 import Buyers from "../../pages/Dashboard/Buyers/Buyers";
+import Dashboard from "../../pages/Dashboard/Dashboard/Dashboard";
 import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../pages/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../../pages/Dashboard/ReportedItems/ReportedItems";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         errorElement: <ErrorPage />,
         children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard />
+            },
             {
                 path: '/dashboard/orders',
                 element: <BuyerRoute><MyOrders /></BuyerRoute>
