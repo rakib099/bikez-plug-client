@@ -10,6 +10,7 @@ const Login = () => {
     useTitle('Login');
     const { signIn, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loginLoading, setLoginLoading] = useState(false);
     const [userEmail, setUserEmail] = useState('');
     const [firebaseError, setFirebaseError] = useState('');
     const [token] = useToken(userEmail);
@@ -29,12 +30,14 @@ const Login = () => {
     const handleLogin = (data, e) => {
         const { email, password } = data;
         setFirebaseError('')
+        setLoginLoading(true);
 
         signIn(email, password)
             .then(result => {
                 const user = result.user;
                 // console.log(user);
                 setUserEmail(user.email);
+                setLoginLoading(false);
                 e.target.reset();
             })
             .catch(err => {
@@ -94,7 +97,12 @@ const Login = () => {
                         {errors.password && <p className='text-error' role="alert">{errors.password?.message}</p>}
                     </div>
                     <p className="text-error mb-2">{firebaseError}</p>
-                    <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Login" />
+                    {
+                        !!loginLoading ?
+                            <button className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2 loading'>Loading</button>
+                            :
+                            <input className='btn border-none w-full bg-[#1257be] hover:bg-blue-700 mb-2' type="submit" value="Login" />
+                    }
                 </form>
                 <p className='text-sm'>New to this website? <Link to='/signup' className='text-[#1257be]'>Create an Account</Link></p>
                 <div className="divider">OR</div>
